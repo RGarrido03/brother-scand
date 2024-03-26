@@ -3,7 +3,7 @@
 ![Status](https://img.shields.io/badge/status-stable-green.svg)
 [![License](https://img.shields.io/github/license/darsto/brother-scanner-driver.svg)](LICENSE.md)
 
-Functional userspace driver for Brother scanners.
+Functional userspace driver for Brother scanners, with Docker support.
 
 This is a server for brother click-to-scan feature.
 To scan, simply press a button on the scanner.
@@ -39,13 +39,23 @@ image data within the same (original) connection. But only on Windows... Well, n
  * Configurable hostname :)
 
 ## Installation
-```
+Clone the repository and its submodules:
+```bash
 git clone https://github.com/rumpeltux/brother-scand.git
 cd brother-scand
 git submodule init
 git submodule update
-make && sudo make install
 ```
+
+Then, run it using Docker:
+
+```bash
+docker run --net host --restart unless-stopped -v ~/Scans:/scans -v ./config:/etc/brother-scand rgarrido03/brother-scand:latest
+```
+
+One can also use Docker Compose. Check an example [here](compose.yaml).
+
+Be sure to check bind mounts. In `config/`, there should be configuration files, such as `scanner.conf`. Check the [out/](out/) folder for some examples of configurations and hooks.
 
 The driver **should** work for the most of Brother devices. 
 However, it has only been tested on the DCP-J105, MFC-J430W, and HL-L2380DW.
