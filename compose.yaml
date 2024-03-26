@@ -1,9 +1,7 @@
 services:
   brother-scand:
     restart: unless-stopped
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: rgarrido03/brother-scand:latest
     network_mode: host
     volumes:
       - "~/Scans:/scans"

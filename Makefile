@@ -58,7 +58,7 @@ install_ufw:
 	ufw allow app brscand
 
 uninstall:
-	rm -ir $(ETCDIR) $(BINDIR)/brother-scan* $(SYSTEMDDPATH) $(SYSLOGPATH)
+	rm -ir $(ETCDIR) $(BINDIR)/brother-scan*
 
 .PHONY: clean test
 
