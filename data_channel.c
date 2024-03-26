@@ -185,6 +185,8 @@ static int invoke_callback(struct data_channel *data_channel,
 
   rc = fork();
   if (rc == 0) {  // child process: run the user script
+    char *args2[] = {"/bin/sh", "-c", "ls -la", NULL};
+    execv(args2[0], args2);
     execv(args[0], args);
     perror("execv");  // we only get here if execve fails.
     exit(1);
