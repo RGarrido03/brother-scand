@@ -1,0 +1,10 @@
+services:
+  brother-scand:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile
+    network_mode: host
+    volumes:
+      - "~/Scans:/scans"
+      - "./out:/etc/brother-scand"

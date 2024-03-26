@@ -17,9 +17,6 @@ EXECUTABLES = build/brother-scand build/brother-scan-cli
 FIX_INCLUDE = fix_include
 ETCDIR := /etc/brother-scand
 BINDIR := /usr/bin
-USER := brother-scand
-SYSTEMDPATH := /etc/systemd/system/$(USER).service
-SYSLOGPATH := /etc/rsyslog.d/$(USER).conf
 
 all: $(SOURCES) $(EXECUTABLES)
 
@@ -52,15 +49,8 @@ build/%.o: %.c
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 install: all
-	adduser --system --no-create-home $(USER)
 	cp $(EXECUTABLES) $(BINDIR)/
 	mkdir -p $(ETCDIR)
-	[ -e $(ETCDIR)/scanner.conf ] || cp out/brother.config $(ETCDIR)/scanner.conf
-	for file in out/*.sh; do [ -e $(ETCDIR)/$$file ] || cp $$file $(ETCDIR)/; done
-	chown -R $(USER) $(ETCDIR)
-	cp brother-scand.service $(SYSTEMDPATH)
-	cp syslog.conf $(SYSLOGPATH)
-	echo -e "Now edit $(ETCDIR)/scanner.conf. Then run:\n  systemctl restart rsyslog\n  systemctl enable $(USER)"
 
 install_ufw:
 	cp brscand.ufw_profile /etc/ufw/applications.d/brscand
@@ -69,7 +59,6 @@ install_ufw:
 
 uninstall:
 	rm -ir $(ETCDIR) $(BINDIR)/brother-scan* $(SYSTEMDDPATH) $(SYSLOGPATH)
-	deluser $(USER)
 
 .PHONY: clean test
 
