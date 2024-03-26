@@ -1,10 +1,10 @@
 FROM alpine:3
 
 # Install build tools
-RUN apk add --update alpine-sdk bsd-compat-headers
+RUN apk add --update alpine-sdk bsd-compat-headers bash
 
 # Install imagemagick for PDF conversion
-RUN apk add --update imagemagick
+RUN apk add imagemagick
 
 # Copy source
 COPY . .
