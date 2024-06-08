@@ -266,7 +266,7 @@ device_handler_loop(void *arg)
           dev->status = snmp_get_printer_status(g_dev_handler.button_conn, buf,
                                                 sizeof(buf), dev->ip);
           printf("status: %d\n", dev->status);
-          if (dev->status != 10001 && dev->status != 10006 && dev->status != 10212 
+          if (dev->status != 10001 && dev->status != 10006 && dev->status != 10211 && dev->status != 10212 
 		  && dev->status != 40000 && dev->status != 40038) {
             dev->next_ping_time = time_now + DEVICE_OFFLINE_RETRY_DURATION_SEC;
             dev->next_register_time = 0;
@@ -275,7 +275,7 @@ device_handler_loop(void *arg)
           }
         }
 
-        if (dev->status != 10001 && dev->status != 10006 && dev->status != 10212
+        if (dev->status != 10001 && dev->status != 10006 && dev->status != 10211 && dev->status != 10212
 	    && dev->status != 40000 && dev->status != 40038) {
           continue;
         }
