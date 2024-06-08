@@ -175,7 +175,7 @@ config_init(const char *config_path)
           goto out;
         }
         dev_config->timeout = var_uint;
-      } else if (sscanf((char *)buf, "hostname %15s", var_str) == 1) {
+      } else if (sscanf((char *)buf, "hostname %[^\t\r\n]", var_str) == 1) {
         if (preset_config == NULL) {
           fprintf(stderr, "Error: hostname specified without a preset.\n");
           goto out;
